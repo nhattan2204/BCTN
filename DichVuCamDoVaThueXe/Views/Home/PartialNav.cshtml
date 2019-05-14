@@ -1,0 +1,58 @@
+﻿<div>
+	<div id="logo">
+		<a href="@Url.Action("Index", "Home")"><img src="~/images/ThanhChung.gif" alt="LOGO"></a>
+	</div>
+	<ul id="navigation">
+		<li id="homenav">
+			<a href="@Url.Action("Index", "Home")">Home</a>
+		</li>
+		<li id="aboutnav">
+			<a href="@Url.Action("About", "Home")">About</a>
+		</li>
+		<li id="dvnav">
+			<a href="@Url.Action("DichVu", "Home", new { dv = 0 })">Service</a>
+		</li>
+		<li id="blognav">
+			<a href="@Url.Action("Blog", "Home")">Blog</a>
+		</li>
+		<li id="contactnav">
+			<a href="@Url.Action("Contact", "Home")">Contact</a>
+		</li>
+		@if (Session["ID"] == null)
+		{
+			<li>
+				<a href="@Url.Action("DangKy", "DangKy")">Regist</a>
+			</li>
+			<li>
+				<a href="@Url.Action("DangNhap", "DangNhap")">Login</a>
+			</li>
+		}
+		else
+		{
+			<li>
+				&nbsp;
+			</li>
+			<li>
+				<a href="#">@Session["Name"]</a>
+			</li>
+			<li>
+				<a href="@Url.Action("Index", "Home")" onclick="logout()">Log Out</a>
+			</li>
+		}
+	</ul>
+</div>
+<script src="~/Content/css/jquery.min.js"></script>
+<script>
+	function logout() {
+
+		$.ajax({
+			type: "POST", url: "/Home/Logout", dataType: "json",
+			contentType: "application/json; charset=utf-8",
+			cache: false, async: true, processData: true, traditional: true,
+			success: function (data) {
+
+
+			}
+		});
+	}
+</script>

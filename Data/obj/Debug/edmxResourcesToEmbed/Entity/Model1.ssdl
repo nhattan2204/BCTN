@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DichVuCamDoThueXeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Account">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="255" />
+    <Property Name="User" Type="nvarchar" MaxLength="255" />
+    <Property Name="Pass" Type="nvarchar" MaxLength="255" />
+    <Property Name="Date" Type="datetime" />
+    <Property Name="Email" Type="nvarchar" MaxLength="255" />
+    <Property Name="GroupID" Type="int" />
+  </EntityType>
+  <EntityType Name="BookCar">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AccountID" Type="int" />
+    <Property Name="CMND" Type="bigint" />
+    <Property Name="ThueBaoNhieuNgay" Type="int" />
+    <Property Name="TienDatCoc" Type="bigint" />
+    <Property Name="NgayDat" Type="datetime" />
+    <Property Name="IDChiTietDV" Type="int" />
+    <Property Name="TrangThai" Type="int" />
+  </EntityType>
+  <EntityType Name="ChiTietDV">
+    <Key>
+      <PropertyRef Name="MaSP" />
+    </Key>
+    <Property Name="MaSP" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaDV" Type="int" />
+    <Property Name="TenSP" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoTa" Type="ntext" />
+    <Property Name="Hinh" Type="nvarchar" MaxLength="255" />
+    <Property Name="DonGia" Type="int" />
+    <Property Name="TrangThai" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoTaNgan" Type="ntext" />
+  </EntityType>
+  <EntityType Name="DichVu">
+    <Key>
+      <PropertyRef Name="MaDV" />
+    </Key>
+    <Property Name="MaDV" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenDV" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoTa" Type="ntext" />
+    <Property Name="Hinh" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="GetMail">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="GroupAccount">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Group" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="LienHe">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="255" />
+    <Property Name="Number" Type="nvarchar" MaxLength="255" />
+    <Property Name="Content" Type="ntext" />
+    <Property Name="Email" Type="nvarchar" MaxLength="255" />
+    <Property Name="TrangThai" Type="bit" />
+  </EntityType>
+  <EntityType Name="Status">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="ThongTinMail">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="255" />
+    <Property Name="Pass" Type="nvarchar" MaxLength="255" />
+    <Property Name="ChuDe" Type="nvarchar" MaxLength="255" />
+    <Property Name="NoiDung" Type="ntext" />
+  </EntityType>
+  <EntityType Name="TinTuc">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="255" />
+    <Property Name="Hinh" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoTa" Type="ntext" />
+    <Property Name="Date" Type="datetime" />
+  </EntityType>
+  <EntityContainer Name="DichVuCamDoThueXeModelStoreContainer">
+    <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BookCar" EntityType="Self.BookCar" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ChiTietDV" EntityType="Self.ChiTietDV" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DichVu" EntityType="Self.DichVu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GetMail" EntityType="Self.GetMail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GroupAccount" EntityType="Self.GroupAccount" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LienHe" EntityType="Self.LienHe" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ThongTinMail" EntityType="Self.ThongTinMail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TinTuc" EntityType="Self.TinTuc" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

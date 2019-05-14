@@ -1,0 +1,12 @@
+D:\Nam4\HK2\GraduationThesis\DichVuCamDoVaThueXe\Data\bin\Debug\Data.dll.config
+D:\Nam4\HK2\GraduationThesis\DichVuCamDoVaThueXe\Data\bin\Debug\Data.dll
+D:\Nam4\HK2\GraduationThesis\DichVuCamDoVaThueXe\Data\bin\Debug\Data.pdb
+D:\Nam4\HK2\GraduationThesis\DichVuCamDoVaThueXe\Data\bin\Debug\EntityFramework.dll
+D:\Nam4\HK2\GraduationThesis\DichVuCamDoVaThueXe\Data\bin\Debug\EntityFramework.SqlServer.dll
+D:\Nam4\HK2\GraduationThesis\DichVuCamDoVaThueXe\Data\bin\Debug\EntityFramework.xml
+D:\Nam4\HK2\GraduationThesis\DichVuCamDoVaThueXe\Data\bin\Debug\EntityFramework.SqlServer.xml
+D:\Nam4\HK2\GraduationThesis\DichVuCamDoVaThueXe\Data\obj\Debug\Data.csprojAssemblyReference.cache
+D:\Nam4\HK2\GraduationThesis\DichVuCamDoVaThueXe\Data\obj\Debug\Data.csproj.CoreCompileInputs.cache
+D:\Nam4\HK2\GraduationThesis\DichVuCamDoVaThueXe\Data\obj\Debug\Data.csproj.CopyComplete
+D:\Nam4\HK2\GraduationThesis\DichVuCamDoVaThueXe\Data\obj\Debug\Data.dll
+D:\Nam4\HK2\GraduationThesis\DichVuCamDoVaThueXe\Data\obj\Debug\Data.pdb

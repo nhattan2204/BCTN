@@ -1,0 +1,94 @@
+﻿@using Data.Entity;
+@{
+	ViewBag.Title = "DSMail";
+	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+	List<GetMail> listMail = ViewBag.listMail as List<GetMail>;
+}
+
+<script src="~/assets/js/core/jquery.min.js"></script>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header card-header-primary">
+					<h4 class="card-title ">Chi Tiết Dịch Vụ</h4>
+					<p class="card-category"></p>
+					<div style="float:right">
+						<button class="btn btn-success">Add</button>
+					</div>
+				</div>
+				<div class="card-body">
+					<div class="table-responsive">
+						<table class="table">
+							<thead class=" text-primary">
+								<tr>
+									<th>STT</th>
+									<th>
+										Email
+									</th>
+									<th>
+										Tiện ích
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								@if (listMail != null)
+								{
+									int i = 1;
+									foreach (var item in listMail)
+									{
+										<tr>
+											<td>@i</td>
+											<td>
+												@item.Email
+											</td>
+											<td>
+												<a href="#" onclick="Xoa(@item.ID)"><i class="fa fa-trash fa-2x"></i></a>
+											</td>
+										</tr>
+										
+										i = i + 1;
+									}
+								}
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	localStorage.setItem('tabactive', 4);
+
+
+	function Xoa(i) {
+		if (confirm("Bạn muốn tiếp tục xóa?")) {
+			const id = { "id": i };
+			$.ajax({
+				type: "POST", url: "/QLGetMail/Delete",
+				data: JSON.stringify(id), dataType: "json",
+				contentType: "application/json; charset=utf-8",
+				cache: false, async: true, processData: true, traditional: true,
+				success: function (data) {
+					if (data == true) {
+						alert("Xóa thành công!");
+						window.location.href = "/Admin/QLGetMail/DSMail";
+					}
+					else {
+						alert("Đã xãy ra lỗi!");
+					}
+
+				},
+				error: function (xhr, textStatus) {
+					console.log(xhr + "\n" + textStatus);
+				}
+			});
+			return;
+		}
+	};
+
+</script>
+

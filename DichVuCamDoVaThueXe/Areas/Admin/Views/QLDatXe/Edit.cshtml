@@ -1,0 +1,229 @@
+﻿@using Data.Entity;
+@model BookCar
+@{
+	ViewBag.Title = "Edit";
+	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+	List<Account> listAcount = ViewBag.listAcount as List<Account>;
+	List<ChiTietDV> listDV = ViewBag.listDV as List<ChiTietDV>;
+	List<Status> listStatus = ViewBag.listStatus as List<Status>;
+}
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header card-header-primary">
+					<h4 class="card-title">Book Car</h4>
+				</div>
+				<div class="card-body">
+					<form enctype="multipart/form-data" method="post" id="myform">
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="bmd-label-floating">CMND *</label>
+									<input type="text" class="form-control" id="cmnd" name="cmnd" onkeypress=" return isNumberKey(event)" value="@if (Model != null) {@Model.CMND}" maxlength="9">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="bmd-label-floating">Số Ngày Thuê *</label>
+									<input type="text" class="form-control" id="date" name="date" onkeypress=" return isNumberKey(event)" value="@if (Model != null) {@Model.ThueBaoNhieuNgay} " maxlength="3">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="bmd-label-floating">Tiền Đặt Cọc *</label>
+									<input type="text" class="form-control" id="datcoc" name="datcoc" onkeypress=" return isNumberKey(event)" value="@if (Model != null) {@Model.TienDatCoc} ">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="bmd-label-floating">Mã DV</label>
+									<select class="form-control" id="dv">
+										@if (listDV != null && listDV.Count > 0)
+										{
+											foreach (var item in listDV)
+											{
+												if (Model != null)
+												{
+													if (item.MaSP == Model.IDChiTietDV)
+													{
+														<option selected value="@item.MaSP">@item.TenSP</option>
+													}
+													else
+													{
+														<option value="@item.MaSP">@item.TenSP</option>
+													}
+												}
+												else
+												{
+													<option value="@item.MaSP">@item.TenSP</option>
+												}
+											}
+										}
+									</select>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="bmd-label-floating">Trạng Thái</label>
+									<select class="form-control" id="tt">
+										@if (listStatus != null && listStatus.Count > 0)
+										{
+											foreach (var item in listStatus)
+											{
+												if (Model != null)
+												{
+													if (item.ID == Model.TrangThai)
+													{
+														<option selected value="@item.ID">@item.Name</option>
+													}
+													else
+													{
+														<option value="@item.ID">@item.Name</option>
+													}
+												}
+												else
+												{
+													<option value="@item.ID">@item.Name</option>
+												}
+											}
+										}
+									</select>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="">
+									<label class="bmd-label-floating">Người thuê</label>
+									<select class="form-control" id="account">
+										@if (listAcount != null && listAcount.Count > 0)
+										{
+											foreach (var item in listAcount)
+											{
+												if (Model != null)
+												{
+													if (item.ID == Model.AccountID)
+													{
+														<option selected value="@item.ID">@item.Name</option>
+													}
+													else
+													{
+														<option value="@item.ID">@item.Name</option>
+													}
+												}
+												else
+												{
+														<option value="@item.ID">@item.Name</option>
+												}
+											}
+										}
+									</select>
+								</div>
+							</div>
+						</div>
+
+						@if (Model != null)
+						{
+							<button type="button" onclick="edit()" class="btn btn-primary pull-right">Update Profile</button>
+						}
+						else
+						{
+							<button type="button" onclick="add()" class="btn btn-primary pull-right">Update Profile</button>
+						}
+
+						<div class="clearfix"></div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<script>
+	localStorage.setItem('tabactive', 7);
+
+	function isNumberKey(evt) {
+		var charCode = (evt.which) ? evt.which : event.keyCode;
+
+		if ((charCode > 31 && (charCode < 48 || charCode > 57)))
+			return false;
+		return true;
+	}
+	function add() {
+		if ($('#datcoc').val() != '' && $('#cmnd').val() != '' && $('#date').val() != '') {
+
+			const obj = {
+				AccountID: $('#account').val(),
+				CMND: $('#cmnd').val(),
+				ThueBaoNhieuNgay: $('#date').val(),
+				TienDatCoc: $('#datcoc').val(),
+				IDChiTietDV: $('#dv').val(),
+				TrangThai: $('#tt').val(),
+			}
+			$.ajax({
+				type: "POST", url: "/QLDatXe/Add",
+				data: JSON.stringify(obj), dataType: "Json",
+				contentType: "application/json; charset=utf-8",
+				cache: false, async: true, processData: true, traditional: true,
+				success: function (d) {
+					if (d == true) {
+						alert("Thêm thành công!");
+						window.location.href = "/Admin/QLDatXe/DSBookCar";
+					} else {
+						alert("Đã xãy ra lỗi!");
+					}
+				},
+				error: function (xhr, textStatus) {
+					console.log(xhr + "\n" + textStatus);
+				}
+			});
+
+
+		} else {
+			alert("Bạn phải nhập đủ thông tin bắc buộc!")
+		}
+	}
+</script>
+@if (Model != null)
+{
+	<script>
+		function edit() {
+			{
+				if ($('#datcoc').val() != '' && $('#cmnd').val() != '' && $('#date').val() != '') {
+					const obj = {
+						ID: @Model.ID,
+					AccountID: $('#account').val(),
+					CMND: $('#cmnd').val(),
+					ThueBaoNhieuNgay: $('#date').val(),
+					TienDatCoc: $('#datcoc').val(),
+					IDChiTietDV: $('#dv').val(),
+					TrangThai: $('#tt').val(),
+				}
+
+					$.ajax({
+						type: "POST", url: "/QLDatXe/doEdit",
+						data: JSON.stringify(obj), dataType: "Json",
+						contentType: "application/json; charset=utf-8",
+						cache: false, async: true, processData: true, traditional: true,
+						success: function (d) {
+							if (d == true) {
+								alert("Chỉnh sửa thành công!");
+								window.location.href = "/Admin/QLDatXe/DSBookCar";
+							} else {
+								alert("Đã xãy ra lỗi!");
+							}
+						},
+						error: function (xhr, textStatus) {
+							console.log(xhr + "\n" + textStatus);
+						}
+					});
+				} else {
+					alert("Bạn phải nhập đủ thông tin bắc buộc!")
+				}
+			}
+		};
+	</script>
+}

@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DichVuCamDoThueXeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DichVuCamDoThueXe.dbo.Account' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Account">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="255" />
+    <Property Name="User" Type="nvarchar" MaxLength="255" />
+    <Property Name="Pass" Type="nvarchar" MaxLength="255" />
+    <Property Name="Date" Type="datetime" />
+    <Property Name="Email" Type="nvarchar" MaxLength="255" />
+    <Property Name="GroupID" Type="bigint" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DichVuCamDoThueXe.dbo.ChiTietDV' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ChiTietDV">
+    <Key>
+      <PropertyRef Name="MaSP" />
+    </Key>
+    <Property Name="MaSP" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaDV" Type="int" />
+    <Property Name="TenSP" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoTa" Type="ntext" />
+    <Property Name="Hinh" Type="nvarchar" MaxLength="255" />
+    <Property Name="DonGia" Type="int" />
+    <Property Name="TrangThai" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoTaNgan" Type="ntext" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DichVuCamDoThueXe.dbo.DangKy' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="DangKy">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaSP" Type="int" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="Date" Type="datetime" />
+    <Property Name="Check" Type="bit" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DichVuCamDoThueXe.dbo.DichVu' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="DichVu">
+    <Key>
+      <PropertyRef Name="MaDV" />
+    </Key>
+    <Property Name="MaDV" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenDV" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoTa" Type="ntext" />
+    <Property Name="Hinh" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DichVuCamDoThueXe.dbo.GroupAccount' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="GroupAccount">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Group" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DichVuCamDoThueXe.dbo.LienHe' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="LienHe">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="255" />
+    <Property Name="Number" Type="nvarchar" MaxLength="255" />
+    <Property Name="Content" Type="ntext" />
+    <Property Name="Email" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'DichVuCamDoThueXe.dbo.TinTuc' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="TinTuc">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="255" />
+    <Property Name="Hinh" Type="nvarchar" MaxLength="255" />
+    <Property Name="MoTa" Type="ntext" />
+    <Property Name="Date" Type="datetime" />
+  </EntityType>
+  <EntityContainer Name="DichVuCamDoThueXeModelStoreContainer">
+    <EntitySet Name="Account" EntityType="Self.Account" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Account].[ID] AS [ID], 
+    [Account].[Name] AS [Name], 
+    [Account].[User] AS [User], 
+    [Account].[Pass] AS [Pass], 
+    [Account].[Date] AS [Date], 
+    [Account].[Email] AS [Email], 
+    [Account].[GroupID] AS [GroupID]
+    FROM [dbo].[Account] AS [Account]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ChiTietDV" EntityType="Self.ChiTietDV" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ChiTietDV].[MaSP] AS [MaSP], 
+    [ChiTietDV].[MaDV] AS [MaDV], 
+    [ChiTietDV].[TenSP] AS [TenSP], 
+    [ChiTietDV].[MoTa] AS [MoTa], 
+    [ChiTietDV].[Hinh] AS [Hinh], 
+    [ChiTietDV].[DonGia] AS [DonGia], 
+    [ChiTietDV].[TrangThai] AS [TrangThai], 
+    [ChiTietDV].[MoTaNgan] AS [MoTaNgan]
+    FROM [dbo].[ChiTietDV] AS [ChiTietDV]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="DangKy" EntityType="Self.DangKy" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [DangKy].[ID] AS [ID], 
+    [DangKy].[MaSP] AS [MaSP], 
+    [DangKy].[UserID] AS [UserID], 
+    [DangKy].[Date] AS [Date], 
+    [DangKy].[Check] AS [Check]
+    FROM [dbo].[DangKy] AS [DangKy]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="DichVu" EntityType="Self.DichVu" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [DichVu].[MaDV] AS [MaDV], 
+    [DichVu].[TenDV] AS [TenDV], 
+    [DichVu].[MoTa] AS [MoTa], 
+    [DichVu].[Hinh] AS [Hinh]
+    FROM [dbo].[DichVu] AS [DichVu]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="GroupAccount" EntityType="Self.GroupAccount" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [GroupAccount].[ID] AS [ID], 
+    [GroupAccount].[Group] AS [Group]
+    FROM [dbo].[GroupAccount] AS [GroupAccount]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="LienHe" EntityType="Self.LienHe" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [LienHe].[ID] AS [ID], 
+    [LienHe].[Name] AS [Name], 
+    [LienHe].[Number] AS [Number], 
+    [LienHe].[Content] AS [Content], 
+    [LienHe].[Email] AS [Email]
+    FROM [dbo].[LienHe] AS [LienHe]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="TinTuc" EntityType="Self.TinTuc" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [TinTuc].[ID] AS [ID], 
+    [TinTuc].[Title] AS [Title], 
+    [TinTuc].[Hinh] AS [Hinh], 
+    [TinTuc].[MoTa] AS [MoTa], 
+    [TinTuc].[Date] AS [Date]
+    FROM [dbo].[TinTuc] AS [TinTuc]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

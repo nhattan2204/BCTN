@@ -1,0 +1,110 @@
+﻿@{
+	ViewBag.Title = "Contact";
+}
+<style>
+	.my-field-error .fv-plugins-message-container, .my-field-error .fv-plugins-icon {
+		color: #ff0039;
+	}
+
+	.my-field-success .fv-plugins-message-container, .my-field-success .fv-plugins-icon {
+		color: #2780e3;
+	}
+</style>
+<div id="contents">
+	<div>
+		<div class="body" id="contact">
+			<div id="sidebar">
+				<div class="body">
+					<img src="~/images/lienhe2.jfif" width="100%" alt="Img">
+					<div class="contact">
+						<p>
+							For Order and Inquiries Please Call: <b>035-861-9373</b> Or you can visit us at: <b>224 PHU LOI, PHU HOA<br>THU DAU MOT, BINH DUONG</b> Or just Email us instead at: <b class="email">nhattan2204@gmail.com</b>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div id="main">
+				<h1>Contact</h1>
+				<p>
+					Bạn có thắc mắc, cần hỗ trợ hay muốn tham gia cùng Thành Chung thay đổi thị trường cầm đồ truyền thống? Hãy liên hệ với chúng tôi !
+				</p>
+				<form action="#" method="post" id="myform">
+					<label>Name</label>
+					<input type="text" required id="name" name="name" value="">
+					<label>Email Address</label>
+					<input type="email" required id="email" name="email" value="">
+					<label>Contact Number</label>
+					<input type="text" id="sdt" value="">
+					<label>Message</label>
+					<textarea id="mes" name="mes" required></textarea>
+					<input type="button" onclick="add()" value="Send Message" class="btn1">
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+
+<script>
+	$(document).ready(function () {
+		$("#myform").validate({
+			rules: {
+				"name": {
+					required: true
+				},
+				"email": {
+					required: true
+				},
+				"mes": {
+					required: true
+				}
+			},
+			plugins: {
+				trigger: new FormValidation.plugins.Trigger(),
+				tachyons: new FormValidation.plugins.Tachyons({
+					rowInvalidClass: 'my-field-error',
+					rowValidClass: 'my-field-success',
+				}),
+				submitButton: new FormValidation.plugins.SubmitButton(),
+				icon: new FormValidation.plugins.Icon({
+					valid: 'fa fa-check',
+					invalid: 'fa fa-times',
+					validating: 'fa fa-refresh',
+				}),
+			}
+		});
+	});
+	var form = $("#myform");
+	function add() {
+		if (form.valid()) {
+			const obj = {
+				Name: $('#name').val(),
+				Number: $('#sdt').val(),
+				Content: $('#mes').val(),
+				Email: $('#email').val(),
+				TrangThai: false
+			};
+			$.ajax({
+				type: "POST", url: "/Home/addContact", data: JSON.stringify(obj), dataType: "Json",
+				contentType: "application/json; charset=utf-8",
+				cache: false, async: true, processData: true, traditional: true,
+				success: function (data) {
+					if (data == true) {
+						alert("Gửi thành công!");
+						$('#name').val(""); $('#sdt').val(""); $('#mes').val(""); $('#email').val("");
+					} else {
+						alert("Đã xãy ra lỗi!");
+					}
+				},
+				error: function (xhr, textStatus) {
+					console.log(xhr + "\n" + textStatus);
+				}
+			});
+		}
+	}
+</script>
+<script>
+	$("#contactnav").attr("class", "selected");
+</script>

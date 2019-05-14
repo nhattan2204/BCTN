@@ -1,0 +1,129 @@
+﻿
+@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Sign Up Form by Colorlib</title>
+
+	<!-- Font Icon -->
+	<link href="~/Content/Login/fonts/material-icon/css/material-design-iconic-font.min.css" rel="stylesheet" />
+
+	<!-- Main css -->
+	<link href="~/Content/Login/css/login.css" rel="stylesheet" />
+</head>
+<body>
+
+	<div class="main">
+
+		<!-- Sign up form -->
+		<section class="signup">
+			<div class="container">
+				<div class="signup-content">
+					<div class="signup-form">
+						<h2 class="form-title">Sign up</h2>
+						<form method="POST" class="register-form" id="myform">
+							<div class="form-group">
+								<label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+								<input type="text" name="name" id="name" placeholder="Your Name" />
+							</div>
+							<div class="form-group">
+								<label for="email"><i class="zmdi zmdi-email"></i></label>
+								<input type="email" name="email" id="email" placeholder="Your Email" />
+							</div>
+							<div class="form-group">
+								<label for="pass"><i class="zmdi zmdi-lock"></i></label>
+								<input type="password" name="pass" id="pass" placeholder="Password" />
+							</div>
+							<div class="form-group">
+								<label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
+								<input type="password" name="re_pass" id="re_pass" placeholder="Repeat your password" />
+							</div>
+
+							<div class="form-group form-button">
+								<input type="button" onclick="sign()" name="signup" id="signup" class="form-submit" value="Register" />
+							</div>
+							<div class="form-group">
+								<a href="/DangNhap/DangNhap" class="signup-image-link">Don't have an Account? Login Now!</a>
+							</div>
+						</form>
+					</div>
+					<div class="signup-image">
+						<figure><img src="~/Content/Login/images/signup-image.jpg" alt="sing up image"></figure>
+						<a href="/Home/Index" class="signup-image-link">Back Home</a>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Sing in  Form -->
+
+
+	</div>
+
+	<!-- JS -->
+	<script src="~/Content/Login/vendor/jquery/jquery.min.js"></script>
+	<script src="~/Content/Login/js/main.js"></script>
+	<script src="~/Scripts/jquery.validate.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			$("#myform").validate({
+				rules: {
+					"name": {
+						required: true
+					},
+					"email": {
+						required: true
+					},
+					"pass": {
+						required: true,
+						minlength: 1
+					},
+					"re_pass": {
+						required: true,
+						equalTo: "#pass"
+					}
+				},
+				messages: {
+					"re_pass": {
+						equalTo: "Passwords Don't Match."
+					}
+				}
+			});
+		});
+		var form = $("#myform");
+		function sign() {
+			if (form.valid()) {
+				 
+					const obj = {
+						Name: $("#name").val(),
+						Pass: $("#pass").val(),
+						Email: $("#email").val(),
+						GroupID: 2,
+					};
+					$.ajax({
+						type: "POST", url: "/DangKy/signup", data: JSON.stringify(obj), dataType: "Json",
+						contentType: "application/json; charset=utf-8",
+						cache: false, async: true, processData: true, traditional: true,
+						success: function (data) {
+							if (data == true) {
+								window.location = "/Home/Index";
+							} else {
+								alert("Đã xãy ra lỗi!");
+							}
+						},
+						error: function (xhr, textStatus) {
+							console.log(xhr + "\n" + textStatus);
+						}
+					});
+				
+			}
+		}
+	</script>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>

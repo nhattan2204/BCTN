@@ -1,0 +1,74 @@
+﻿@using Data.Entity;
+@{
+	ViewBag.Title = "DichVu";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+	List<ChiTietDV> listTT = ViewBag.listTT as List<ChiTietDV>;
+	List<DichVu> listDV = ViewBag.listDV as List<DichVu>;
+}
+
+<div id="contents">
+	<div>
+		<div class="body" id="gallery">
+			<ul class="tabs">
+				@if (listDV != null)
+				{
+					foreach (var item in listDV)
+					{
+						if (item.MaDV == ViewBag.Madv)
+						{
+
+							<li class="selected">
+								<a href="@Url.Action("DichVu","Home", new { dv = item.MaDV})">@item.TenDV</a>
+							</li>
+						}
+						else
+						{
+
+							<li>
+								<a href="@Url.Action("DichVu","Home", new { dv = item.MaDV})">@item.TenDV</a>
+							</li>
+						}
+					}
+				}
+			</ul>
+			<h1>SERVICE</h1>
+			<ul class="items">
+				@if (listTT != null)
+				{
+					foreach (var item in listTT)
+					{
+				<li>
+					<div class="frame">
+						<img src="@Url.Content("~/images/"+item.Hinh)" width="100%" height="100%" alt="Img">
+					</div>
+					<h5>@item.TenSP</h5>
+					@if (item.MaDV == 2)
+					{
+					<p>
+						@Html.Raw(item.MoTaNgan)
+						Price: @item.DonGia VND/day<br />Status: @if (item.TrangThai == "1")
+						{<span>Còn xe</span> }
+						else
+						{ <span>Hết xe</span>}<br />
+					</p>
+						<div>
+							<a href="@Url.Action("DatXe","DatXe", new { id = item.MaSP})">Reserve</a>
+						</div><br />
+					}
+
+					<a href="@Url.Action("ChiTiet","ChiTietDV", new { id = item.MaSP})" class="more">Read More</a>
+				</li>
+					}
+				}
+
+
+			</ul>
+			
+		</div>
+	</div>
+</div>
+<script src="~/Content/css/jquery.min.js"></script>
+<script>
+	$("#dvnav").attr("class", "selected");
+</script>
+

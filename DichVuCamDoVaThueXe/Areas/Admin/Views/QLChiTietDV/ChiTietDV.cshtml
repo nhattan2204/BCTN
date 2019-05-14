@@ -1,0 +1,125 @@
+﻿@using Data.Entity;
+@{
+	ViewBag.Title = "ChiTietDV";
+	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+	List<ChiTietDV> listTT = ViewBag.listTT as List<ChiTietDV>;
+}
+
+<script src="~/assets/js/core/jquery.min.js"></script>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header card-header-primary">
+					<h4 class="card-title ">Chi Tiết Dịch Vụ</h4>
+					<p class="card-category"></p>
+					<div style="float:right">
+						<a class="btn btn-success" href="@Url.Action("ViewChiTietDV","QLChiTietDV", new { id = 0})">Add</a>
+					</div>
+				</div>
+				<div class="card-body">
+					<div class="table-responsive">
+						<table class="table">
+							<thead class=" text-primary">
+								<tr>
+									<th>STT</th>
+									<th>
+										Tên SP
+									</th>
+									<th>
+										Mã DV
+									</th>
+									<th>
+										Đơn giá
+									</th>
+									<th>
+										Trạng thái
+									</th>
+									<th>
+										Tiện ích
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								@if (listTT != null)
+								{
+									int i = 1;
+									foreach (var item in listTT)
+									{
+										<tr>
+											<td>@i</td>
+											<td>
+												@item.TenSP
+											</td>
+											<td>
+												<span id="@item.MaSP"></span>
+											</td>
+											<td>
+												@item.DonGia
+											</td>
+											<td>
+												@item.TrangThai
+											</td>
+											<td>
+												<a href="@Url.Action("ViewChiTietDV","QLChiTietDV", new { id = item.MaSP})"><i class="fa fa-edit fa-2x"></i></a>
+												<a href="#" onclick="Xoa(@item.MaSP)"><i class="fa fa-trash fa-2x"></i></a>
+											</td>
+										</tr>
+										<script>
+                        $.ajax({
+							type: "POST", url: "/QLChiTietDV/TenDichVu",
+                            data: JSON.stringify({id:@item.MaDV}), dataType: "json",
+                            contentType: "application/json; charset=utf-8",
+                            cache: false, async: true, processData: true, traditional: true,
+							success: function (data) {
+								$('#@item.MaSP').text(data);
+                            },
+                            error: function (xhr, textStatus) {
+                                console.log(xhr + "\n" + textStatus);
+                            }
+                        });
+										</script>
+										i = i + 1;
+									}
+								}
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+
+	localStorage.setItem('tabactive', 3);
+
+	function Xoa(i) {
+		if (confirm("Bạn muốn tiếp tục xóa?")) {
+			const id = { "id": i };
+			$.ajax({
+				type: "POST", url: "/QLChiTietDV/Delete",
+				data: JSON.stringify(id), dataType: "json",
+				contentType: "application/json; charset=utf-8",
+				cache: false, async: true, processData: true, traditional: true,
+				success: function (data) {
+					if (data == true) {
+						alert("Xóa thành công!");
+						window.location.href = "/Admin/QLChiTietDV/ChiTietDV";
+					}
+					else {
+						alert("Xe hiện đang được thuê không thể xóa!");
+					}
+					
+				},
+				error: function (xhr, textStatus) {
+					console.log(xhr + "\n" + textStatus);
+				}
+			});
+			return;
+		}
+	};
+
+</script>

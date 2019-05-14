@@ -1,0 +1,112 @@
+﻿@using Data.Entity;
+@model ThongTinMail
+@{
+	ViewBag.Title = "SendMail";
+	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header card-header-primary">
+					<h4 class="card-title">Send Mail for List Mail</h4>
+				</div>
+				<div class="card-body">
+					<form enctype="multipart/form-data" method="post" id="myform">
+						<div class="row">
+							<div class="col-md-8">
+								<div class="form-group">
+									<label class="bmd-label-floating">Email *</label>
+									<input type="email" class="form-control" id="name" required name="name" value="@if (Model != null) {@Model.Email}">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label class="bmd-label-floating">Pass *</label>
+									<input type="password" class="form-control" id="pass" required name="pass" value="@if (Model != null) {@Model.Pass}">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="bmd-label-floating">Chủ đề *</label>
+									<input type="text" class="form-control" id="chude" required name="chude" value="@if (Model != null) {@Model.ChuDe}">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label>Nội Dung *</label>
+									<div class="form-group">
+										<textarea id="content"class="form-control" rows="5" name="content" required>@if (Model != null) {@Model.NoiDung}</textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<button type="button" onclick="send()" class="btn btn-primary pull-right">Send Mail</button>
+
+
+						<div class="clearfix"></div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script>
+	$(document).ready(function () {
+		$("#myform").validate({
+			rules: {
+				"name": {
+					required: true
+				},
+				"chude": {
+					required: true
+				},
+				"pass": {
+					required: true
+				},
+				"content": {
+					required: true
+				}
+			}
+		});
+	});
+	var form = $("#myform");
+	function send() {
+		if (form.valid()) {
+			const obj = {
+				Email: $('#name').val(),
+				Pass: $('#pass').val(),
+				ChuDe: $('#chude').val(),
+				NoiDung: $('#content').text()
+			}
+			$.ajax({
+				type: "POST", url: "/QLGetMail/Send",
+				data: JSON.stringify(obj), dataType: "Json",
+				contentType: "application/json; charset=utf-8",
+				cache: false, async: true, processData: true, traditional: true,
+				success: function (d) {
+					if (d == true) {
+						alert("Gửi thành công!");
+						window.location.href = "/Admin/QLGetMail/DSMail";
+					} else {
+						if (d == "NotSend")
+							alert("Danh Sách mail gửi đi rỗng!")
+						else
+							alert("Đã xãy ra lỗi!");
+					}
+				},
+				error: function (xhr, textStatus) {
+					console.log(xhr + "\n" + textStatus);
+				}
+			});
+		} else alert('TB')
+	}
+</script>

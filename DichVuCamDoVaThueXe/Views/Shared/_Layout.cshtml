@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<!-- Website template by freewebsitetemplates.com -->
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Wood Working Website Template</title>
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<link href="~/Content/css/style.css" rel="stylesheet" />
+</head>
+<body>
+	<div id="header">
+		@Html.Partial("~/Views/Home/PartialNav.cshtml")
+	</div>
+	@RenderBody()
+	<div id="footer">
+		<div>
+			<div id="links">
+				@*<div class="showroom">
+						<h4>Visit our Showroom</h4>
+						<a href="gallery.html"><img src="~/images/oto2.jpg" width="100%" height="50%" alt="Img"></a>
+						<p>
+							1183/1/9 CMT8, Town 2<br> PHU THO, THU DAU MOT, BINH DUONG<br><br> 035-861-9373<br><br> <a href="index.html">nhattan2204@gmail.com</a>
+						</p>
+					</div>*@
+				<div class="showroom">
+					<h4>Visit our Showroom</h4>
+					<div id="gmap_canvas" class="gmap-canvas wow fadeInUp">
+						<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.745387306987!2d106.67437228686839!3d10.982580961541592!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3174d120a2c27ea9%3A0x8a12e17adb7048df!2zMjQ0IFBow7ogTOG7o2ksIFBow7ogSG_DoCwgVGjhu6cgROG6p3UgTeG7mXQsIELDrG5oIETGsMahbmcsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1534222741518" frameborder="0" style="border:0" allowfullscreen></iframe>
+					</div>
+					<p>
+						224 PHU LOI, PHU HOA<br>THU DAU MOT, BINH DUONG<br><br> 035-861-9373<br><br> <a>nhattan2204@gmail.com</a>
+					</p>
+				</div>
+				<div>
+					<h4>Recent Blog Posts</h4>
+					<ul class="posts">
+						<li>
+							<span class="time">Apr 16</span>
+							<p>
+								<a >Innova Car 7 Chairs</a> Car track for the family tour!
+							</p>
+						</li>
+						<li>
+							<span class="time">Apr 15</span>
+							<p>
+								<a >Experience "Gold" Automatic Car Rental</a> Determining the purpose of early car and car rental.
+							</p>
+						</li>
+						<li>
+							<span class="time">Apr 14</span>
+							<p>
+								<a >Cheap Limousine Car Service For All Family</a> The terms and prices of the Limousine car rental service.
+							</p>
+						</li>
+					</ul>
+				</div>
+				<div>
+					<form action="#" method="post" id="newsletter">
+						<h4>Join Our Newsletter</h4>
+						<input type="email" required id="email" placeholder="Enter Email Address Here For Updates" onBlur="javascript:if(this.value==''){this.value=this.defaultValue;}" onFocus="javascript:if(this.value==this.defaultValue){this.value='';}">
+						<input type="button" value="Sign up" onclick="getmail()" class="btn2" />
+					</form>
+					<div id="connect">
+						<h4>Social Media</h4>
+						<a target="_blank" class="facebook"></a> <a target="_blank" class="googleplus"></a> <a target="_blank" class="twitter"></a>
+					</div>
+				</div>
+			</div>
+			<ul class="navigation">
+				<li>
+					<a href="@Url.Action("Index", "Home")">Home</a>
+				</li>
+				<li>
+					<a href="@Url.Action("About", "Home")">About</a>
+				</li>
+				<li>
+					<a href="@Url.Action("DichVu", "Home")">Service</a>
+				</li>
+				<li>
+					<a href="@Url.Action("Blog", "Home")">Blog</a>
+				</li>
+				<li>
+					<a href="@Url.Action("Contact", "Home")">Contact</a>
+				</li>
+			</ul>
+			<p id="footnote">
+				© Copyright 2019. All Rights Reserved.
+			</p>
+		</div>
+	</div>
+	<script>
+		function getmail() {
+			if ($('#email').val() == "") {
+				alert("Mời bạn nhập email!");
+
+			}
+			else {
+				const obj = {
+					Email: $('#email').val()
+				}
+				$.ajax({
+					type: "POST", url: "/Home/GetMail", dataType: "json", data: JSON.stringify(obj),
+					contentType: "application/json; charset=utf-8",
+					cache: false, async: true, processData: true, traditional: true,
+					success: function (data) {
+						if (data == true)
+							alert('Bạn đã đăng ký nhận mail tại trang web!');
+
+					}
+				});
+			}
+		}
+	</script>
+</body>
+</html>
+

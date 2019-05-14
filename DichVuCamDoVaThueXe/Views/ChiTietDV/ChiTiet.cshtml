@@ -1,0 +1,71 @@
+﻿@using Data.Entity
+@{
+	ViewBag.Title = "ChiTiet";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+	List<ChiTietDV> listTT = ViewBag.listTT as List<ChiTietDV>;
+	List<ChiTietDV> Maybe = ViewBag.Maybe as List<ChiTietDV>;
+}
+
+<div id="contents">
+	<div>
+		<div class="body" id="blog">
+			<div id="sidebar">
+				<div>
+					<h5>Same Kind</h5>
+					<ul class="">
+						@if (Maybe != null)
+						{
+							foreach (var item in Maybe)
+							{
+								<li style="text-align:center">
+									<a href="@Url.Action("ChiTiet","ChiTietDV", new { id = item.MaSP})">
+										<img src="~/images/@item.Hinh" width="100%" />
+										@item.TenSP
+									</a>
+									<hr />
+
+								</li>
+							}
+						}
+
+					</ul>
+				</div>
+				
+			</div>
+			<div id="main">
+				<div class="viewer">
+					@if (listTT != null)
+					{
+						foreach (var item in listTT)
+						{
+							<span class="time">Apr 16</span>
+							<h3><a href="blog.html">@item.TenSP</a></h3>
+							<p class="info">
+								Posted By: <a>Admin</a> in <a>Production</a>, <a>Carved Creations</a>
+							</p>
+							<div class="frame">
+								<img src="@Url.Content("~/images/"+item.Hinh)" width="100%" height="100%" alt="Img">
+							</div>
+							<p>
+								@Html.Raw(item.MoTaNgan)
+								@if (item.MaDV == 2)
+								{
+
+								<span>Price: @item.DonGia/day<br />Status:@if(item.TrangThai == "1") {<span>Còn xe</span> } else { <span>Hết xe</span>}</span><br />
+									}
+								Descriptions: @item.MoTa
+							</p>
+							
+						}
+					}
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="~/Content/css/jquery.min.js"></script>
+<script>
+	$("#dvnav").attr("class", "selected");
+</script>
+

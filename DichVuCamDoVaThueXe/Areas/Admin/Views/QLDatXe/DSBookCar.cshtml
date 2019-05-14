@@ -1,0 +1,162 @@
+﻿@using Data.Entity;
+@{
+	ViewBag.Title = "DSBookCar";
+	Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+	List<BookCar> listBookCar = ViewBag.listBookCar as List<BookCar>;
+}
+
+<script src="~/assets/js/core/jquery.min.js"></script>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header card-header-primary">
+					<h4 class="card-title ">Đặt Xe</h4>
+					<p class="card-category"></p>
+					<div style="float:right">
+						<a class="btn btn-success" href="@Url.Action("Edit","QLDatXe", new {id= 0})">Add</a>
+					</div>
+				</div>
+				<div class="card-body">
+					<div class="table-responsive">
+						<table class="table">
+							<thead class=" text-primary">
+								<tr>
+									<th>STT</th>
+									<th>
+										Người đặt
+									</th>
+									<th>
+										Số CMND
+									</th>
+									<th>
+										Số ngày thuê
+									</th>
+									<th>
+										Xe Đặt
+									</th>
+									<th>
+										Đặt Cọc
+									</th>
+									<th>
+										Trạng thái
+									</th>
+									<th>
+										Tiện ích
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								@if (listBookCar != null)
+								{
+									int i = 1;
+									foreach (var item in listBookCar)
+									{
+										<tr>
+											<td>@i</td>
+											<td>
+												<span id="@item.ID"></span>
+											</td>
+											<td>
+												@item.CMND
+											</td>
+											<td>
+												@item.ThueBaoNhieuNgay
+											</td>
+											<td>
+												<span id="xe_@item.ID"></span>
+											</td>
+											<td>
+												@item.TienDatCoc
+											</td>
+											<td>
+												<span id="tt_@item.ID"></span>
+											</td>
+											<td>
+												<a href="@Url.Action("Edit","QLDatXe", new {id= item.ID})"><i class="fa fa-edit fa-2x"></i></a>
+												<a href="#" onclick="Xoa(@item.ID)"><i class="fa fa-trash fa-2x"></i></a>
+											</td>
+										</tr>
+
+										<script>
+											$.ajax({
+												type: "POST", url: "/QLDatXe/TenNguoiDat",
+												data: JSON.stringify({id:@item.AccountID}), dataType: "json",
+												contentType: "application/json; charset=utf-8",
+												cache: false, async: true, processData: true, traditional: true,
+												success: function (data) {
+													$('#@item.ID').text(data);
+												},
+												error: function (xhr, textStatus) {
+													console.log(xhr + "\n" + textStatus);
+												}
+											});
+											$.ajax({
+												type: "POST", url: "/QLDatXe/XeDat",
+												data: JSON.stringify({id:@item.IDChiTietDV}), dataType: "json",
+												contentType: "application/json; charset=utf-8",
+												cache: false, async: true, processData: true, traditional: true,
+												success: function (data) {
+													$('#xe_@item.ID').text(data);
+												},
+												error: function (xhr, textStatus) {
+													console.log(xhr + "\n" + textStatus);
+												}
+											}); $.ajax({
+												type: "POST", url: "/QLDatXe/Status",
+												data: JSON.stringify({id:@item.TrangThai}), dataType: "json",
+												contentType: "application/json; charset=utf-8",
+												cache: false, async: true, processData: true, traditional: true,
+												success: function (data) {
+													$('#tt_@item.ID').text(data);
+												},
+												error: function (xhr, textStatus) {
+													console.log(xhr + "\n" + textStatus);
+												}
+											});
+										</script>
+										i = i + 1;
+									}
+								}
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+
+	localStorage.setItem('tabactive', 7);
+
+	function Xoa(i) {
+		if (confirm("Bạn muốn tiếp tục xóa?")) {
+			const id = { "id": i };
+			$.ajax({
+				type: "POST", url: "/QLDatXe/Delete",
+				data: JSON.stringify(id), dataType: "json",
+				contentType: "application/json; charset=utf-8",
+				cache: false, async: true, processData: true, traditional: true,
+				success: function (data) {
+					if (data == true) {
+						alert("Xóa thành công!");
+						window.location.href = "/Admin/QLDatXe/DSBookCar";
+					}
+					else {
+						alert("Đã xảy ra lỗi!");
+					}
+
+				},
+				error: function (xhr, textStatus) {
+					console.log(xhr + "\n" + textStatus);
+				}
+			});
+			return;
+		}
+	};
+
+</script>
+

@@ -1,0 +1,80 @@
+﻿@{
+	ViewBag.Title = "Home Page";
+}
+
+<div id="contents">
+	<div>
+		<div class="body">
+			<div id="adbox">
+				<img src="~/images/nissangtr3.jpg" style="width:469px; height:407px" alt="Img"> <span class="info"><a href="@Url.Action("DichVu","Home", new { dv = 2})" class="btn1">View Details</a> </span>
+				<div class="details">
+					<h1>Nissan Gtr<br>car produced by Japanese automobile manufacturer Nissan</h1>
+					<p>
+						Engine 6.5L<br />Has gone: 100.000 km<br />Speed: 400 km/h<br />Only cost: 1.000.000VND/day
+					</p>
+				</div>
+			</div>
+			<ul id="featured">
+				<li>
+					<div>
+						<img src="~/images/mazda62016.jpg" width="100%" alt="Img">
+					</div>
+					<div class="details">
+						<h4>Mazda6 2016</h4>
+						<p>
+							Place: nationwide<br />Engine: Kappa 1.25L gasoline<br />Number of kilometers traveled: 500km<br />Status: still car<br />Price: 2.500.000VND/day
+						</p>
+					</div>
+				</li>
+				<li class="bedroom">
+					<div>
+						<img src="~/images/chevroletcaptiva.jpg" width="100%" alt="Img"> 
+					</div>
+					<div class="details">
+						<h4>Chevolet Captiva</h4>
+						<p>
+							Place: nationwide<br />Engine: Kappa 1.25L gasoline<br />Number of kilometers traveled: 500km<br />Status: still car<br />Price: 2.000.000VND/day
+						</p>
+					</div>
+				</li>
+				<li class="kitchen">
+					<div>
+						<img src="~/images/hondacity1.jpg" width="100%" alt="Img">
+					</div>
+					<div class="details">
+						<h4>Honda City</h4>
+						<p>
+							Place: nationwide<br />Engine: Kappa 1.25L gasoline<br />Number of kilometers traveled: 500km<br />Status: still car<br />Price: 1.000.000VND/day
+						</p>
+					</div>
+				</li>
+			</ul>
+			<div class="contact">
+				<p>
+					For Order and Inquiries Please Call: <b>035-861-9373</b> Or you can visit us at: <b>224 PHU LOI, PHU HOA<br>THU DAU MOT City,<br />BINH DUONG Provine</b>
+				</p>
+			</div>
+			<div class="blog">
+				<h4>Types of services</h4>
+				<div>
+					<img src="~/images/otocam2.jpg" style="width:132px;height:152px" alt="Img"> <span>Car for rent service</span>
+					<p>
+						Many new car models
+					</p>
+					<a href="@Url.Action("DichVu","Home", new { dv = 2})" class="more">Read More</a>
+				</div>
+				<div>
+					<img src="~/images/laptop5.jpg" style="width:132px;height:152px" alt="Img"> <span>Pawn service</span>
+					<p>
+						Holding many types of assets
+					</p>
+					<a href="@Url.Action("DichVu","Home", new { dv = 3})" class="more">Read More</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="~/Content/css/jquery.min.js"></script>
+<script>
+	$("#homenav").attr("class", "selected");
+</script>

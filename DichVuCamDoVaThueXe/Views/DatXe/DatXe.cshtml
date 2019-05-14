@@ -1,0 +1,115 @@
+﻿@using Data.Entity;
+@{
+	ViewBag.Title = "DatXe";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+	List<ChiTietDV> listTT = ViewBag.listTT as List<ChiTietDV>;
+}
+
+<div id="contents">
+	<div>
+		<div class="body" id="contact">
+			<div id="sidebar">
+				<div class="body">
+					@if (listTT != null)
+					{
+						foreach (var item in listTT)
+						{
+							<img src="@Url.Content("~/images/"+item.Hinh)" width="100%" alt="Img">
+							<div class="contact">
+								<p>
+									@item.TenSP<br />
+									@Html.Raw(item.MoTaNgan)
+									<span>Price: @item.DonGia/day<br />Status: @if (item.TrangThai == "1")
+									{<span>Còn xe</span> }
+									else
+									{ <span>Hết xe</span>}</span><br />
+								</p>
+							</div>
+						}
+					}
+
+				</div>
+			</div>
+			<div id="main">
+				<h1>Book a car</h1>
+				<p>
+					Please enter full information !
+				</p>
+				<form action="#" id="myform" method="post">
+
+					<label>Number CMND</label>
+					<input type="text" id="cmnd" name="cmnd" value="" onkeypress=" return isNumberKey(event)">
+					<label>Rent for many days</label>
+					<input type="text" id="tbnn" name="tbnnn" value="" onkeypress=" return isNumberKey(event)">
+					<label>Deposit amount</label>
+					<input type="text" id="stdc" value="" name="stdc" onkeypress=" return isNumberKey(event)">
+					<input type="button" onclick="add()" value="Book Car" class="btn1">
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script>
+	$(document).ready(function () {
+		$("#myform").validate({
+			rules: {
+				"cmnd": {
+					required: true,
+					maxlength: 9
+				},
+				"tbnnn": {
+					required: true,
+					maxlength: 3
+				},
+				"stdc": {
+					required: true,
+					minlength: 1
+				}
+			}
+		});
+	});
+	function isNumberKey(evt) {
+		var charCode = (evt.which) ? evt.which : event.keyCode;
+
+		if ((charCode > 31 && (charCode < 48 || charCode > 57)))
+			return false;
+		return true;
+	}
+	var form = $("#myform");
+	function add() {
+		if (form.valid()) {
+			const obj = {
+				CMND: $('#cmnd').val(),
+				ThueBaoNhieuNgay: $('#tbnn').val(),
+				TienDatCoc: $('#stdc').val(),
+				IDChiTietDV:@ViewBag.DVid,
+				TrangThai:1
+			};
+			$.ajax({
+				type: "POST", url: "/DatXe/addDatXe", data: JSON.stringify(obj), dataType: "Json",
+				contentType: "application/json; charset=utf-8",
+				cache: false, async: true, processData: true, traditional: true,
+				success: function (data) {
+					if (data == true) {
+						alert("Đặt thành công!");
+						window.location = "/Home/Index";
+					} else {
+						alert("Đã xãy ra lỗi!");
+					}
+				},
+				error: function (xhr, textStatus) {
+					console.log(xhr + "\n" + textStatus);
+				}
+			});
+		}
+	}
+</script>
+<script>
+	$("#contactnav").attr("class", "selected");
+</script>
+
